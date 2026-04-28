@@ -1,36 +1,46 @@
-# Moveric
+podman-compose up -d
 
-**Moveric — API-First Resumable File Transfer Engine**
+cd /apps/moveric
 
-Moveric is a lightweight, API-first file transfer engine designed to handle large file movement with **resumability**, **integrity**, and **reliability**.
+# 1. Apply schema
+psql "postgres://moveric:moveric@127.0.0.1:5432/moveric_dev" -f schema.sql
 
-## Why Moveric
+# 2. Start infra (if not already running)
+podman-compose up -d
 
-Traditional file transfer systems:
+# 3. Build binaries
+go build -o bin/source-agent .
 
-- restart transfers on failure
-- are complex and expensive
-- lack developer-friendly APIs
+# 4. Create a test file
+dd if=/dev/urandom of=/tmp/testfile bs=1M count=2000
+dd if=/dev/urandom of=/apps/testfie_2gb bs=1M count=2000
 
-Moveric solves this by:
+# 5. Run source agent
+./bin/source-agent /tmp/testfile
+```
 
-- breaking files into chunks
-- allowing resume from failure point
-- ensuring end-to-end data integrity
-- exposing simple API-based integration
+Expected output:
+```
+transfer <uuid> created — 1 chunks
+✓ chunk 00001/00001 uploaded
+transfer <uuid> — all chunks uploaded
 
-## Core Features (MVP)
+Build:
+go build -o bin/dest-agent ./dest/
 
-- Chunk-based file transfer
-- Resume from last successful chunk
-- SHA-256 checksum validation
-- Offset-based file assembly
-- Transfer tracking (DB-backed)
+# Terminal 1 — start dest agent
+./bin/dest-agent
 
-## Status
+# Terminal 2 — resend the file to trigger events
+./bin/source-agent /tmp/testfile
 
-🚧 MVP in progress
+Monitor:
+MINIO:
+    http://127.0.0.1:9001 in browser
+    Login: moveric / moveric123
 
-## License
+Postgres:
+psql "postgres://moveric:moveric@127.0.0.1:5432/moveric_dev" -c "SELECT id, status, total_chunks FROM transfers;"
 
-Apache 2.0
+watch 'psql "postgres://moveric:moveric@127.0.0.1:5432/moveric_dev" -c "SELECT id, part_index, status, checksum FROM chunks;"'
+
