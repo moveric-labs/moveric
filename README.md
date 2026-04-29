@@ -169,3 +169,11 @@ Please open an issue before starting significant work.
 ## License
 
 [Apache 2.0](LICENSE)
+
+---
+
+
+<footer>
+  <p>© 2026 Vignesh T. All rights reserved.</p>
+  <p>Moveric is an independent open-source project and is not affiliated with any employer.</p>
+</footer>
