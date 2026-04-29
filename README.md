@@ -6,7 +6,7 @@
 
 Moveric is an open-source Managed File Transfer (MFT) engine built for reliability, not convenience. It chunks large files, stages them through object storage, validates checksums end-to-end, and resumes from the exact point of failure — no restarts, no guesswork.
 
-**Current version:** v0.1 (Core Engine)
+**Current version:** v0.1.0 (Core Engine Pre-release)
 
 ---
 
