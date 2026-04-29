@@ -1,8 +1,12 @@
 # Moveric
+🚀 Hosted version coming soon  
+📩 Join waitlist: moveric.project@gmail.com
 
 **API-first resumable file transfer engine for enterprise environments.**
 
 Moveric is an open-source Managed File Transfer (MFT) engine built for reliability, not convenience. It chunks large files, stages them through object storage, validates checksums end-to-end, and resumes from the exact point of failure — no restarts, no guesswork.
+
+**Current version:** v0.1 (Core Engine)
 
 ---
 
@@ -12,7 +16,7 @@ Traditional MFT tools are either too expensive, too brittle, or too opaque. Move
 
 - **Resumable by default** — transfers pick up from the last successful chunk, not from zero
 - **Integrity guaranteed** — SHA-256 checksum validation on every chunk and final assembly
-- **API-first** — every transfer operation is driven through a REST control plane
+- **API-first** — (control plane in progress)
 - **Observable** — transfer and chunk state is queryable at any point
 - **Open core** — the transfer engine is Apache 2.0; enterprise features (multi-tenancy, HA, SSO) are commercial
 
