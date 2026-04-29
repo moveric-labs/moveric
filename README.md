@@ -86,7 +86,7 @@ podman-compose up -d
 psql "postgres://moveric:moveric@127.0.0.1:5432/moveric_dev" -f schema.sql
 ```
 
-### 3. Build binaries
+### 3. Build binaries (Skip this step if you have the binaries already)
 
 ```bash
 # Source agent
@@ -124,11 +124,22 @@ transfer — all chunks uploaded
 ```bash
 ./bin/dest-agent
 ```
+or
+
+```bash
+cd moveric/
+./dest-agent
+```
 
 **Terminal 2 — trigger transfer:**
 
 ```bash
 ./bin/source-agent /tmp/testfile
+```
+or
+```bash
+cd moveric
+./source-agent /tmp/testfile
 ```
 
 ---

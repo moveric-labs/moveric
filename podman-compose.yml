@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:15
+    image: docker.io/library/postgres:15
     environment:
       POSTGRES_USER: moveric
       POSTGRES_PASSWORD: moveric
@@ -11,7 +11,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
   nats:
-    image: nats:latest
+    image: docker.io/library/nats:latest
     command: ["--jetstream", "--http_port", "8222"]
     ports:
       - "127.0.0.1:4222:4222"
@@ -20,7 +20,7 @@ services:
       - nats_data:/data
     restart: unless-stopped
   minio:
-    image: minio/minio
+    image: docker.io/minio/minio:latest
     command: server /data --console-address ":9001"
     environment:
       MINIO_ROOT_USER: moveric
